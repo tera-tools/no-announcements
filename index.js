@@ -23,27 +23,29 @@ module.exports = function NoAnnouncements(mod) {
     config = loadConfig(settingsPath);
 
     if (config.enabled)
-      enableHooks();
+      enableHooks(true);
   });
 
-  function enableHooks() {
+  function enableHooks(silent) {
     if (!config.enabled) {
       config.enabled = true;
       saveConfig(settingsPath, config);
     }
 
     messageHook = mod.hook('S_SYSTEM_MESSAGE', 1, sSystemMessage);
-    msg('Blocking enchant and loot announcements.');
+	if (!silent)
+	  msg('Blocking enchant and loot announcements.');
   }
 
-  function disableHooks() {
+  function disableHooks(silent) {
     if (config.enabled) {
       config.enabled = false;
       saveConfig(settingsPath, config);
     }
 
     mod.unhook(messageHook);
-    msg('Allowing enchant and loot announcements.');
+	if (!silent)
+	  msg('Allowing enchant and loot announcements.');
   }
 
   function sSystemMessage(event) {
