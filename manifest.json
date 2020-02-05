@@ -1,0 +1,11 @@
+{
+  "files": {
+    "LICENSE": "96f47bbc97b00176da0d2942fff1cbb7dc18e635df81e4f84bd1eb5a11778613",
+    "README.md": "2ac60b32353f97227d2f41190524039fc040a0023b9f23c6b5e533c8cad79f4a",
+    "index.js": "3c9a92b6a39b134771380c4729fdb5b951a9c83a77e3277c486b326d95a4b084",
+    "module.json": "79b632d73620e190f89e6341183f74cd825c2e95c59b09f5d50cd0ae520abaae"
+  },
+  "defs": {
+    "S_SYSTEM_MESSAGE": 1
+  }
+}
