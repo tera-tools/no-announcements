@@ -1,15 +1,21 @@
 {
-  "disableAutoUpdate": false,
-  "author": "tera-tools",
-  "options": {
-    "niceName": "No Announcements",
-    "guiName": "No Announcements"
-  },
-  "supportUrl": "https://github.com/tera-tools/no-announcements",
-  "servers": ["https://raw.githubusercontent.com/tera-tools/no-announcements/master/"],
-  "name": "no-announcements",
-  "description": "Disable global announcements",
-  "packets": {
-    "S_SYSTEM_MESSAGE": 1
-  }
+    "disableAutoUpdate": false,
+    "author": "tera-tools",
+    "options": {
+        "niceName": "No Announce",
+        "guiName": "No Announcements",
+        "loadOn": "versioncheck",
+        "reloadable": true,
+        "settingsVersion": 1,
+        "settingsFile": "config.json",
+        "settingsMigrator": "settings.js",
+        "settingsAutosaveOnClose": true
+    },
+    "supportUrl": "https://github.com/tera-tools/no-announcements",
+    "servers": ["https://raw.githubusercontent.com/tera-tools/no-announcements/master/"],
+    "name": "no-announcements",
+    "description": "Disable global announcements",
+    "packets": {
+        "S_SYSTEM_MESSAGE": 1
+    }
 }

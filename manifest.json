@@ -1,11 +1,13 @@
 {
-  "files": {
-    "LICENSE": "8f54a23ae511eae715e58044d5ce75264d05e7a24273242b965afe20119e97e5",
-    "README.md": "534ad11506e9c873daee2324aa69ba9f2df20ff25a9a36eb0d7a79ea6cf182fa",
-    "index.js": "6bcc202f3d8385d699b380da99b4f32a83931535602e1ea67afd0890a4cb71d2",
-    "module.json": "79b632d73620e190f89e6341183f74cd825c2e95c59b09f5d50cd0ae520abaae"
-  },
-  "defs": {
-    "S_SYSTEM_MESSAGE": 1
-  }
+    "files": {
+        "LICENSE": "8f54a23ae511eae715e58044d5ce75264d05e7a24273242b965afe20119e97e5",
+        "README.md": "534ad11506e9c873daee2324aa69ba9f2df20ff25a9a36eb0d7a79ea6cf182fa",
+        "index.js": "1b51ff358ba5eb65eed604b3591b5a038a7a00803bab62497248df4c13b79ccd",
+        "messages.json": "95c8ea4118968efc9b705aa317f2006db862ab25de45a39eb834ed87e3b348a2",
+        "module.json": "0b6f3f567fe302ad530966437b83412c263f7a98c234c92b7a5663410ac69a8b",
+        "settings.js": "b99ca40e95dd044ee1438b648c3a5e6770898c8b989f37675fdf34335532c107"
+    },
+    "defs": {
+        "S_SYSTEM_MESSAGE": 1
+    }
 }

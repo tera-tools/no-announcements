@@ -1,77 +1,71 @@
 const path = require('path');
 const fs = require('fs');
+const messages = require('./messages.json');
 
 module.exports = function NoAnnouncements(mod) {
-  const KEYWORDS = [
-    '@2405',
-    '@464'
-  ];
-
   let messageHook;
-  let config
-  let settingsPath;
 
-  mod.command.add('announce', (...args) => {
-    if (config.enabled)
-      disableHooks();
-    else
-      enableHooks();
-  });
-
-  mod.game.on('enter_game', () => {
-    settingsPath = path.join(__dirname, `${mod.game.me.name}-${mod.game.serverId}.json`);
-    config = loadConfig(settingsPath);
-
-    if (config.enabled)
-      enableHooks(true);
-  });
-
-  function enableHooks(silent) {
-    if (!config.enabled) {
-      config.enabled = true;
-      saveConfig(settingsPath, config);
-    }
-
-    messageHook = mod.hook('S_SYSTEM_MESSAGE', 1, sSystemMessage);
-	if (!silent)
-	  msg('Blocking enchant and loot announcements.');
+  if (mod.settings.enabled) {
+    enableHooks();
   }
 
-  function disableHooks(silent) {
-    if (config.enabled) {
-      config.enabled = false;
-      saveConfig(settingsPath, config);
-    }
+  mod.command.add('announce', {
+    $default() {
+      msg(' No Accounements. Usage:');
+      msg('   announce  - Turn module on/off');
+      msg('   announce loot - Turn lockbox messages on/off');
+      msg('   announce enchant - Turn enchanting messages on/off');
+      msg('   announce fish - Turn fishing messages on/off');
+    },
+    loot() {
+      mod.settings.lootbox = !mod.settings.lootbox;
+      msg(' Lockboxes - ' + (mod.settings.lootbox ? 'allowed.' : 'blocked.'));
+      mod.saveSettings();
+    },
+    enchant() {
+      mod.settings.enchant = !mod.settings.enchant;
+      msg(' Enchanting - ' + (mod.settings.enchant ? 'allowed.' : 'blocked.'));
+      mod.saveSettings();
+    },
+    fish() {
+      mod.settings.fish = !mod.settings.fish;
+      msg(' Fishing - ' + (mod.settings.fish ? 'allowed.' : 'blocked.'));
+      mod.saveSettings();
+    },
+    $none() {
+      mod.settings.enabled = !mod.settings.enabled;
+      mod.saveSettings();
 
+      if (mod.settings.enabled) {      
+        msg(' Blocking announcements.'); 
+        enableHooks();
+      } else {
+        msg(' Allowing announcements.');
+        disableHooks();
+      }
+    }
+  })
+
+  function enableHooks() {
+    messageHook = mod.hook('S_SYSTEM_MESSAGE', 1, sSystemMessage);
+  }
+
+  function disableHooks() {
     mod.unhook(messageHook);
-	if (!silent)
-	  msg('Allowing enchant and loot announcements.');
   }
 
   function sSystemMessage(event) {
-    if (KEYWORDS.some(x => event.message.startsWith(x)))
-      return false;
-  }
-
-  function loadConfig(filePath) {
-    let cfg;
-    try {
-      cfg = JSON.parse(fs.readFileSync(filePath));
-    } catch (e) {
-      cfg = {};
+    if (mod.settings.enabled) {
+      if (!mod.settings.lootbox && messages.loot.some(x => event.message.startsWith(x))) {
+        return false;
+      }
+      if (!mod.settings.enchant && messages.enchant.some(x => event.message.startsWith(x))) {
+        return false;
+      }
+      if (!mod.settings.fish && messages.fish.some(x => event.message.startsWith(x))) {
+        return false;
+      }
     }
-    
-    checkConfig(cfg);
-    return cfg;
-  }
-
-  function saveConfig(filePath, data) {
-    fs.writeFileSync(filePath, JSON.stringify(data, null, "\t"));
-  }
-
-  function checkConfig(config) {
-    if (config.enabled === undefined)
-      config.enabled = true;
   }
 
   function msg(text) {
