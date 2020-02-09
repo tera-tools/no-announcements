@@ -2,6 +2,19 @@
 Disables global enchanting and loot announcements in Tera.  
 Especially useful during lootbox events.
 
-### How To Use:
-Mod is enabled by default.  
-It can be toggled on or off using: `/8 announce`
+### Commands:
+`/8 announce`  
+Toggle on/off  
+Mod is enabled by default.
+
+`/8 announce fish`  
+Toggle fishing messages on/off  
+Blocked by default.
+
+`/8 announce enchant`  
+Toggle enchanting messages on/off  
+Blocked by default.
+
+`/8 announce loot`  
+Toggle strongbox messages on/off  
+Blocked by default.
